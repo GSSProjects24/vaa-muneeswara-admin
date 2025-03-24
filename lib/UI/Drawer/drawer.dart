@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vaa_muneeswara_admin/Color/app_color.dart';
 import 'package:vaa_muneeswara_admin/UI/Dashboard/dashboard.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -9,7 +10,7 @@ class SideDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 250,
-      color: Colors.indigo[900], // Dark blue background
+      color: AppTheme.textColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -47,7 +48,7 @@ class SideDrawer extends StatelessWidget {
         // Smooth transition
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        margin: EdgeInsets.only(left: 10,top: 5,bottom: 5),
         padding: EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: controller.selectedIndex.value == index ? Colors.white : Colors.transparent,
