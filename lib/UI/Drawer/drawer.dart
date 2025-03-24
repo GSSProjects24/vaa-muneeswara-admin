@@ -43,7 +43,8 @@ class SideDrawer extends StatelessWidget {
     return Obx(() => GestureDetector(
       onTap: () {
         controller.changePage(index);
-        Get.off(() => page, transition: Transition.fadeIn); // Smooth transition
+        Get.offAll(() => page, transition: Transition.fadeIn);
+        // Smooth transition
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
