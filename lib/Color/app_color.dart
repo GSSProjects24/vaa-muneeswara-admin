@@ -10,6 +10,9 @@ class AppTheme {
   static const Color buttonTextColor = Color(0xFFFFFFFF); // White (For contrast)
   static const Color containerBackground = Color(0xFF008000); // Green
 
+
+
+  static const Color whiteColor=Colors.white;
   static ThemeData orangeTheme = ThemeData(
     primaryColor: primaryColor,
     scaffoldBackgroundColor: backgroundColor,

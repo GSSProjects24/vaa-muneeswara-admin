@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "893288310175",
+    "firebase_url": "https://vaa-muneeswara-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "vaa-muneeswara",
+    "storage_bucket": "vaa-muneeswara.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893288310175:android:76bb4ea7304661d22549aa",
+        "android_client_info": {
+          "package_name": "com.app.graspsoft.vaamuneeswara"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK6JS6V3_QxP5YlFGtn5Qrw_enKefffUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
