@@ -14,24 +14,20 @@ class SideDrawer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 20),
+
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(
-              "Shopper",
-              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+            child: Image.asset('images/app_logo.png'),
           ),
-          SizedBox(height: 20),
+
 
           // Menu Items with Navigation
           _buildMenuItem(Icons.dashboard, "Dashboard", 0, Dashboard()),
           _buildMenuItem(Icons.trending_up, "Marketing Report", 1, Dashboard2()),
           _buildMenuItem(Icons.shopping_cart, "Order Summary", 2, Dashboard2()),
           _buildMenuItem(Icons.bar_chart, "Sales Report", 3, Dashboard2()),
-          _buildMenuItem(Icons.person, "Profile", 4, Dashboard2()),
-          _buildMenuItem(Icons.settings, "Settings", 5, Dashboard2()),
-          _buildMenuItem(Icons.logout, "Sign Out", 6, Dashboard2()),
+
+          _buildMenuItem(Icons.logout, "Sign Out", 4, Dashboard2()),
 
           Spacer(),
           SizedBox(height: 20),
@@ -61,7 +57,7 @@ class SideDrawer extends StatelessWidget {
           children: [
             SizedBox(width: 10),
             CircleAvatar(
-              backgroundColor: controller.selectedIndex.value == index ? Colors.blue : Colors.grey,
+              backgroundColor: controller.selectedIndex.value == index ? AppTheme.secondaryColor :  AppTheme.primaryColor,
               radius: 18,
               child: Icon(icon, color: Colors.white, size: 20),
             ),
@@ -69,7 +65,7 @@ class SideDrawer extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                color: controller.selectedIndex.value == index ? Colors.indigo[900] : Colors.grey[400],
+                color: controller.selectedIndex.value == index ? AppTheme.textColor : Colors.grey[400],
                 fontWeight: FontWeight.bold,
               ),
             ),
