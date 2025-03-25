@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vaa_muneeswara_admin/Color/app_color.dart';
+
 import 'package:vaa_muneeswara_admin/Controller/timing_controller.dart';
+import 'package:vaa_muneeswara_admin/Style%20and%20Color/app_color.dart';
 import 'package:vaa_muneeswara_admin/UI/Dashboard/dashboard.dart';
 import 'package:vaa_muneeswara_admin/UI/Timing/timing.dart';
 import 'package:vaa_muneeswara_admin/UI/price/price.dart';

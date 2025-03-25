@@ -46,6 +46,7 @@ dependencies:
   firebase_storage: ^12.4.4
   flutter_launcher_icons: ^0.14.3
   file_picker: ^9.2.1
+  get_storage: ^2.1.1
 
 
 dev_dependencies:

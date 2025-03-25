@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vaa_muneeswara_admin/Color/app_color.dart';
+import 'package:vaa_muneeswara_admin/Style%20and%20Color/app_color.dart';
 import 'package:vaa_muneeswara_admin/UI/Drawer/drawer.dart';
 import 'package:vaa_muneeswara_admin/UI/Timing/widget/sectionCard.dart';
 import 'package:vaa_muneeswara_admin/UI/Timing/widget/timeSelectButton.dart';
