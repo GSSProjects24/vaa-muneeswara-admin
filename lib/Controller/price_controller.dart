@@ -4,78 +4,92 @@ import 'package:get/get.dart';
 
 class PriceListController extends GetxController {
   var selectedCategory = 'Prasadham'.obs;
-  var nameController = TextEditingController();
-  var amountController = TextEditingController();
-  var descriptionController = TextEditingController();
-  final TextEditingController prasadhamNameTamilController = TextEditingController();
-  final TextEditingController noteTamilController = TextEditingController();
-  final TextEditingController noteEnglishController = TextEditingController();
 
-  // Fetch price list from Firestore
-  Stream<QuerySnapshot> getPriceList() {
-    return FirebaseFirestore.instance.collection("price_list").snapshots();
+  var amountController = TextEditingController();
+  var nameController = TextEditingController();
+  var prasadhamNameTamilController = TextEditingController();
+  var noteEnglishController = TextEditingController();
+  var noteTamilController = TextEditingController();
+  var descriptionEnglishController = TextEditingController();
+  var descriptionTamilController = TextEditingController();
+
+  CollectionReference get collection => FirebaseFirestore.instance
+      .collection(selectedCategory.value == "Prasadham"
+      ? "pricePrasadam"
+      : "priceAbishegam");
+
+  void addOrUpdatePrice({String? docId}) async {
+    Map<String, dynamic> data = {
+
+      "amount": "${amountController.text}",
+      if (selectedCategory.value == "Prasadham") ...{
+        "name": nameController.text,
+        "name_tamil": prasadhamNameTamilController.text,
+        "unit": noteEnglishController.text,
+        "unit_tamil": noteTamilController.text,
+        "priority": 1
+      } else ...{
+        "name": descriptionEnglishController.text,
+        "name_tamil": descriptionTamilController.text,
+        "priority": 1
+      }
+    };
+
+    if (docId == null) {
+      DocumentReference docRef = await collection.add(data);
+      data["id"] = docRef.id;
+      await docRef.set(data);
+    } else {
+      await collection.doc(docId).update(data);
+    }
+
+    Get.back();
   }
 
-  // Set category selection
+  void deletePrice(String docId) async {
+    await collection.doc(docId).delete();
+  }
+
+
   void setCategory(String category) {
     selectedCategory.value = category;
   }
 
-  // Add or Update Price Item
-  void addOrUpdatePrice() async {
-    if (amountController.text.isEmpty || descriptionController.text.isEmpty) {
-      Get.snackbar("Error", "Amount and Description are required!",
-          snackPosition: SnackPosition.BOTTOM);
-      return;
-    }
 
-    Map<String, dynamic> priceData = {
-      "amount": amountController.text,
-      "description": descriptionController.text,
-      "category": selectedCategory.value,
-    };
+  Stream<QuerySnapshot> getPriceList(String category) {
+    String collectionName =
+    category == "Prasadham" ? "pricePrasadam" : "priceAbishegam";
+    return FirebaseFirestore.instance.collection(collectionName).snapshots();
+  }
 
-    if (selectedCategory.value == "Prasadham") {
-      if (nameController.text.isEmpty) {
-        Get.snackbar("Error", "Prasadham Name is required!",
-            snackPosition: SnackPosition.BOTTOM);
-        return;
+
+  void setData(Map<String, dynamic>? data) {
+    if (data != null) {
+
+
+      amountController.text = data['amount']?.toString() ?? '';
+
+      if (selectedCategory.value == 'Prasadham') {
+        nameController.text = data['name'] ?? '';
+        prasadhamNameTamilController.text = data['name_tamil'] ?? '';
+        noteEnglishController.text = data['unit'] ?? '';
+        noteTamilController.text = data['unit_tamil'] ?? '';
+      } else {
+        descriptionEnglishController.text = data['name'] ?? '';
+        descriptionTamilController.text = data['name_tamil'] ?? '';
       }
-      priceData["name"] = nameController.text;
-    }
+    } else {
 
-    try {
-      await FirebaseFirestore.instance.collection("price_list").add(priceData);
-      Get.snackbar("Success", "Price item saved successfully!",
-          snackPosition: SnackPosition.BOTTOM);
-      clearFields();
-    } catch (e) {
-      Get.snackbar("Error", "Failed to save price item: $e",
-          snackPosition: SnackPosition.BOTTOM);
-    }
-  }
-
-  // Load data for editing
-  void loadForEdit(String docId, Map<String, dynamic> data) {
-    selectedCategory.value = data["category"];
-    amountController.text = data["amount"];
-    descriptionController.text = data["description"];
-    if (selectedCategory.value == "Prasadham") {
-      nameController.text = data["name"] ?? "";
+      selectedCategory.value = 'Prasadham';
+      amountController.clear();
+      nameController.clear();
+      prasadhamNameTamilController.clear();
+      noteEnglishController.clear();
+      noteTamilController.clear();
+      descriptionEnglishController.clear();
+      descriptionTamilController.clear();
     }
   }
 
-  // Delete price item
-  void deletePrice(String docId) async {
-    await FirebaseFirestore.instance.collection("price_list").doc(docId).delete();
-    Get.snackbar("Deleted", "Price item removed",
-        snackPosition: SnackPosition.BOTTOM);
-  }
-
-  // Clear form fields
-  void clearFields() {
-    nameController.clear();
-    amountController.clear();
-    descriptionController.clear();
-  }
 }
+

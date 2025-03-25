@@ -2,259 +2,243 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vaa_muneeswara_admin/Controller/price_controller.dart';
+import 'package:vaa_muneeswara_admin/Style%20and%20Color/app_color.dart';
 import 'package:vaa_muneeswara_admin/UI/Drawer/drawer.dart';
+import 'package:vaa_muneeswara_admin/UI/price/add_edit_price.dart';
 
 class PriceListPage extends StatelessWidget {
   final PriceListController controller = Get.put(PriceListController());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      body: Row(
-        children: [
-          // Sidebar Menu
-          SideDrawer(),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Colors.grey[100],
+        body: Row(
+          children: [
+            // Sidebar Menu
+            SideDrawer(),
 
-          // Main Content
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Title
-                  Text(
-                    "Manage Price List",
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-
-                  // Price List Form
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 5,
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Obx(() => DropdownButtonFormField<String>(
-                            value: controller.selectedCategory.value,
-                            items: ['Prasadham', 'Abishegam']
-                                .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e),
-                            ))
-                                .toList(),
-                            onChanged: (value) =>
-                                controller.setCategory(value!),
-                            decoration: InputDecoration(
-                              labelText: 'Select Category',
-                              border: OutlineInputBorder(),
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                            ),
-                          )),
-                          SizedBox(height: 15),
-
-                          Obx(() {
-                            return Column(
-                              children: [
-                                // Prasadham Fields
-                                if (controller.selectedCategory.value == 'Prasadham') ...[
-                                  TextFormField(
-                                    controller: controller.nameController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Prasadham Name',
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  ),
-                                  SizedBox(height: 15),
-
-                                  TextFormField(
-                                    controller: controller.prasadhamNameTamilController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Prasadham Name (Tamil)',
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  ),
-                                  SizedBox(height: 15),
-                                  TextFormField(
-                                    controller: controller.noteEnglishController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Note',
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    maxLines: 2,
-                                  ),
-                                  SizedBox(height: 15),
-                                  TextFormField(
-                                    controller: controller.noteTamilController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Note (Tamil)',
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    maxLines: 2,
-                                  ),
-                                  SizedBox(height: 15),
-                                ],
-
-                                // Common Fields (Amount & Description)
-                                TextFormField(
-                                  controller: controller.amountController,
-                                  decoration: InputDecoration(
-                                    labelText: 'Amount',
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                ),
-                                SizedBox(height: 15),
-
-                                TextFormField(
-                                  controller: controller.descriptionController,
-                                  decoration: InputDecoration(
-                                    labelText: 'Description',
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  maxLines: 3,
-                                ),
-                                SizedBox(height: 15),
-
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                    onPressed: controller.addOrUpdatePrice,
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.deepPurple,
-                                      padding: EdgeInsets.symmetric(vertical: 14),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Save',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          })
-
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(height: 30),
-
-                  // Price List Section
-                  Expanded(child: _buildPriceList()),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTextField(TextEditingController controller, String label,
-      {bool isNumber = false, int maxLines = 1}) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(),
-        filled: true,
-        fillColor: Colors.grey[200],
-      ),
-      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
-      maxLines: maxLines,
-    );
-  }
-
-  Widget _buildPriceList() {
-    return StreamBuilder<QuerySnapshot>(
-      stream: controller.getPriceList(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError)
-          return Center(child: Text('Error: ${snapshot.error}'));
-        if (!snapshot.hasData)
-          return Center(child: CircularProgressIndicator());
-
-        final docs = snapshot.data!.docs;
-        return GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2.5,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-          ),
-          itemCount: docs.length,
-          itemBuilder: (context, index) {
-            final data = docs[index].data() as Map<String, dynamic>;
-
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              elevation: 4,
+            // Main Content
+            Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(24.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '${data['category'] == 'Prasadham' ? data['name'] ?? '' : ''}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      '₹${data['amount']}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Spacer(),
+                    // Title
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          icon: Icon(Icons.edit, color: Colors.blue),
-                          onPressed: () => controller.loadForEdit(
-                              docs[index].id, data),
+                        Text(
+                          "Manage Price List",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.primaryColor,
+                          ),
                         ),
-                        IconButton(
-                          icon: Icon(Icons.delete, color: Colors.red),
-                          onPressed: () => controller.deletePrice(
-                              docs[index].id),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            _showPriceDialog();
+                          },
+                          icon: Icon(Icons.add, color: Colors.white),
+                          label: Text("Add New Price", style: TextStyle(
+                              fontSize: 16, color: Colors.white)),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.primaryColor,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 14),
+                          ),
                         ),
                       ],
+                    ),
+                    SizedBox(height: 40),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppTheme.primaryColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: TabBar(
+                        labelColor: AppTheme.secondaryColor,
+                        unselectedLabelColor: AppTheme.whiteColor,
+                        indicatorColor: AppTheme.secondaryColor,
+                        tabs: [
+                          Tab(child: Text('Prasadham', style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),),),
+                          Tab(child: Text('Abishegam', style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),),)
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+
+                    // TabBar View for displaying data in table format
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          _buildPriceTable("Prasadham"),
+                          _buildPriceTable("Abishegam"),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            );
-          },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPriceTable(String category) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: controller.getPriceList(category),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator(color: AppTheme.primaryColor,));
+        }
+
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return Center(child: Text("No $category items available."));
+        }
+
+        final docs = snapshot.data!.docs;
+
+        return SingleChildScrollView(
+          child: DataTable(
+            headingRowColor: MaterialStateColor.resolveWith(
+                    (states) =>
+                    AppTheme.primaryColor.withOpacity(0.2)),
+            border: TableBorder.all(color: Colors.grey.shade300),
+            columns: [
+              DataColumn(
+                  label: Text(
+                      category == "Prasadham"
+                          ? "Name"
+                          : "Description",
+                      style: TextStyle(fontWeight: FontWeight.bold,
+                          color: AppTheme.primaryColor))),
+              DataColumn(
+                  label: Text("Amount",
+                      style: TextStyle(fontWeight: FontWeight.bold,
+                          color: AppTheme.primaryColor))),
+              DataColumn(
+                  label: Text("Actions",
+                      style: TextStyle(fontWeight: FontWeight.bold,
+                          color: AppTheme.primaryColor))),
+            ],
+            rows: docs.map((doc) {
+              final data = doc.data() as Map<String, dynamic>;
+              return DataRow(cells: [
+                DataCell(Text(data['name'] ?? '')),
+                DataCell(Text("${data['amount']}")),
+                DataCell(
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {
+                         _showPriceDialog(data: data, docId: doc.id,category:category);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete, color: Colors.red),
+                        onPressed: () =>  _showDeleteConfirmationDialog(context, doc.id),
+                      ),
+                    ],
+                  ),
+                ),
+              ]);
+            }).toList(),
+          ),
         );
       },
     );
   }
+  void _showDeleteConfirmationDialog(BuildContext context, String docId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirm Delete"),
+          content: Text("Are you sure you want to delete this item?"),
+          actions: [
+            // Cancel Button
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Cancel", style: TextStyle(color: Colors.grey)),
+            ),
+            TextButton(
+              onPressed: () {
+                controller.deletePrice(docId);
+                Navigator.of(context).pop();
+              },
+              child: Text("Delete", style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  void _showPriceDialog({String? docId, Map<String, dynamic>? data,String? category}) async {
+    Future.delayed(Duration.zero, () async {
+      print("dta: ${data}");
+      if (data == null) {
+
+        controller.selectedCategory.value = 'Prasadham';
+        controller.nameController.clear();
+        controller.prasadhamNameTamilController.clear();
+        controller.noteEnglishController.clear();
+        controller.noteTamilController.clear();
+        controller.descriptionEnglishController.clear();
+        controller.descriptionTamilController.clear();
+        controller.amountController.clear();
+      } else {
+        controller.selectedCategory.value =category ?? 'Prasadham';
+        controller.amountController.text = data['amount']?.toString() ?? '';
+        if (controller.selectedCategory.value == "Prasadham") {
+          controller.nameController.text = data['name'] ?? '';
+          controller.prasadhamNameTamilController.text = data['name_tamil'] ?? '';
+          controller.noteEnglishController.text = data['unit'] ?? '';
+          controller.noteTamilController.text = data['unit_tamil'] ?? '';
+        } else {
+          controller.descriptionEnglishController.text = data['name'] ?? '';
+          controller.descriptionTamilController.text = data['name_tamil'] ?? '';
+        }
+      }
+
+
+      Get.defaultDialog(
+        title: docId == null ? "Add Price" : "Edit Price",
+        titleStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: AppTheme.primaryColor,
+        ),
+        content: SizedBox(
+          width: 400,
+          height: 500,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                PriceFormPage(data: data, docId: docId),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
+  }
 }
+
