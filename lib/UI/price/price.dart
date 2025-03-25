@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vaa_muneeswara_admin/Controller/price_controller.dart';
 import 'package:vaa_muneeswara_admin/Style%20and%20Color/app_color.dart';
+import 'package:vaa_muneeswara_admin/Style%20and%20Color/font_style.dart';
 import 'package:vaa_muneeswara_admin/UI/Drawer/drawer.dart';
 import 'package:vaa_muneeswara_admin/UI/price/add_edit_price.dart';
 
@@ -141,18 +142,54 @@ class PriceListPage extends StatelessWidget {
                 DataCell(
                   Row(
                     children: [
-                      IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () {
-                         _showPriceDialog(data: data, docId: doc.id,category:category);
-                        },
+                      ElevatedButton.icon(
+                        onPressed: () =>(
+              _showPriceDialog(data: data, docId: doc.id,category:category)
+              ),
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                            "Edit",
+                            style: TextStyles.textStyle(14, AppTheme.whiteColor )
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:AppTheme.primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(
+                                8),
+                          ),
+                        ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.delete, color: Colors.red),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton.icon(
                         onPressed: () =>  _showDeleteConfirmationDialog(context, doc.id),
+                        icon: Icon(
+                          Icons.delete_outline_outlined,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                            "Delete",
+                            style: TextStyles.textStyle(14, AppTheme.whiteColor )
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                          Colors.red.shade900,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(
+                                8),
+                          ),
+                        ),
                       ),
+
                     ],
                   ),
+
                 ),
               ]);
             }).toList(),

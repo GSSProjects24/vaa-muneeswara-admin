@@ -97,7 +97,7 @@ class _ContactState extends State<Contact> {
                 decoration: InputDecoration(labelText: "Name")),
             TextField(
                 controller: numberController,
-                decoration: InputDecoration(labelText: "Number")),
+                decoration: InputDecoration(labelText: "Phone Number")),
           ],
         ),
         actions: [
@@ -364,7 +364,7 @@ class _ContactState extends State<Contact> {
                                           ),
                                           DataColumn(
                                             label: Text(
-                                              "Number",
+                                              "Phone Number",
                                                 style: TextStyles.textStyle(18, AppTheme.black,weight: FontWeight.bold)
                                             ),
                                           ),
@@ -401,7 +401,7 @@ class _ContactState extends State<Contact> {
                                                     ),
                                                     style: ElevatedButton.styleFrom(
                                                       backgroundColor:
-                                                          Colors.lightBlue,
+                                                      AppTheme.primaryColor,
                                                       shape: RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius.circular(
@@ -535,7 +535,7 @@ class _ContactState extends State<Contact> {
                                                         style: TextStyles.textStyle(14, AppTheme.whiteColor )
                                                     ),
                                                     style: ElevatedButton.styleFrom(
-                                                      backgroundColor: Colors.lightBlue,
+                                                      backgroundColor: AppTheme.primaryColor,
                                                       shape: RoundedRectangleBorder(
                                                         borderRadius: BorderRadius.circular(8),
                                                       ),
