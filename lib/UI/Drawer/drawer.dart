@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vaa_muneeswara_admin/Color/app_color.dart';
+import 'package:vaa_muneeswara_admin/Controller/timing_controller.dart';
 import 'package:vaa_muneeswara_admin/UI/Dashboard/dashboard.dart';
+import 'package:vaa_muneeswara_admin/UI/Timing/timing.dart';
+import 'package:vaa_muneeswara_admin/UI/price/price.dart';
 
 class SideDrawer extends StatelessWidget {
   final SideDrawerController controller = Get.put(SideDrawerController());
@@ -20,11 +23,9 @@ class SideDrawer extends StatelessWidget {
             child: Image.asset('images/app_logo.png'),
           ),
 
-
-          // Menu Items with Navigation
           _buildMenuItem(Icons.dashboard, "Dashboard", 0, Dashboard()),
-          _buildMenuItem(Icons.trending_up, "Marketing Report", 1, Dashboard2()),
-          _buildMenuItem(Icons.shopping_cart, "Order Summary", 2, Dashboard2()),
+          _buildMenuItem(Icons.alarm, "Timing", 1, Timing()),
+          _buildMenuItem(Icons.price_change, "Price", 2, PriceListPage()),
           _buildMenuItem(Icons.bar_chart, "Sales Report", 3, Dashboard2()),
 
           _buildMenuItem(Icons.logout, "Sign Out", 4, Dashboard2()),
@@ -40,9 +41,14 @@ class SideDrawer extends StatelessWidget {
     return Obx(() => GestureDetector(
       onTap: () {
         controller.changePage(index);
-        Get.offAll(() => page, transition: Transition.fadeIn);
-        // Smooth transition
+        if (page is Timing) {
+          Get.offAll(() => Timing(), transition: Transition.fadeIn);
+          Get.find<TimingController>().fetchTimings();
+        } else {
+          Get.offAll(() => page, transition: Transition.fadeIn);
+        }
       },
+
       child: Container(
         margin: EdgeInsets.only(left: 10,top: 5,bottom: 5),
         padding: EdgeInsets.symmetric(vertical: 12),
@@ -79,7 +85,7 @@ class SideDrawer extends StatelessWidget {
 
 
 class SideDrawerController extends GetxController {
-  var selectedIndex = 0.obs; // Observable index for menu selection
+  var selectedIndex = 0.obs;
 
   void changePage(int index) {
     selectedIndex.value = index;

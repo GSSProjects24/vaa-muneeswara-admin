@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:vaa_muneeswara_admin/UI/Dashboard/dashboard.dart';
 import 'package:vaa_muneeswara_admin/firebase.option.dart';
 
 import 'Color/app_color.dart';
@@ -19,26 +21,30 @@ Future<void> main() async {
   } catch (e) {
     print('Error initializing Firebase: $e');
   }
+  await GetStorage.init();
 
-  runApp(const MyApp());
+  final box = GetStorage();
+  bool isLoggedIn = box.read('isLoggedIn') ?? false;
+
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
-
 class MyApp extends StatelessWidget {
+  final bool isLoggedIn;
 
-  const MyApp({super.key});
+  const MyApp({Key? key, required this.isLoggedIn}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Vaa Muneeswara Admin',
       theme: AppTheme.orangeTheme,
-      home:    Login(),
+      home: isLoggedIn ? Dashboard() : Login(),
     );
   }
 }
+
 
 
 
