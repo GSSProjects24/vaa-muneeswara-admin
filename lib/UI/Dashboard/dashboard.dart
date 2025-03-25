@@ -116,14 +116,6 @@ class _DashboardState extends State<Dashboard> {
     setState(() {});
   }
 
-  // Future<void> _saveItem() async {
-  //   final data = {
-  //     'imageUrl': _imageUrl,
-  //   };
-  //   await _firestore.collection('homeSlider').add(data);
-  //   setState(() {});
-  // }
-
   void _showAddEditPopup() {
     _imageUrl = null;
     showDialog(
