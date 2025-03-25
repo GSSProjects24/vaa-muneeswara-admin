@@ -42,12 +42,13 @@ class SideDrawer extends StatelessWidget {
     return Obx(() => GestureDetector(
       onTap: () {
         controller.changePage(index);
-        if (page is Timing) {
-          Get.offAll(() => Timing(), transition: Transition.fadeIn);
-          Get.find<TimingController>().fetchTimings();
-        } else {
-          Get.offAll(() => page, transition: Transition.fadeIn);
-        }
+        Get.offAll(() => page, transition: Transition.fadeIn);
+        // if (page is Timing) {
+        //   Get.offAll(() => Timing(), transition: Transition.fadeIn);
+        //   Get.find<TimingController>().fetchTimings();
+        // } else {
+        //
+        // }
       },
 
       child: Container(

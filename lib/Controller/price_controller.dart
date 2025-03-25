@@ -7,6 +7,9 @@ class PriceListController extends GetxController {
   var nameController = TextEditingController();
   var amountController = TextEditingController();
   var descriptionController = TextEditingController();
+  final TextEditingController prasadhamNameTamilController = TextEditingController();
+  final TextEditingController noteTamilController = TextEditingController();
+  final TextEditingController noteEnglishController = TextEditingController();
 
   // Fetch price list from Firestore
   Stream<QuerySnapshot> getPriceList() {
