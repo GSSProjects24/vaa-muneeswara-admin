@@ -68,32 +68,75 @@ class PriceListPage extends StatelessWidget {
                           Obx(() {
                             return Column(
                               children: [
-                                if (controller.selectedCategory.value ==
-                                    'Prasadham')
-                                  _buildTextField(controller.nameController,
-                                      'Prasadham Name'),
+                                // Prasadham Fields
+                                if (controller.selectedCategory.value == 'Prasadham') ...[
+                                  TextFormField(
+                                    controller: controller.nameController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Prasadham Name',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 15),
+
+                                  TextFormField(
+                                    controller: controller.prasadhamNameTamilController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Prasadham Name (Tamil)',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(height: 15),
+                                  TextFormField(
+                                    controller: controller.noteEnglishController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Note',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    maxLines: 2,
+                                  ),
+                                  SizedBox(height: 15),
+                                  TextFormField(
+                                    controller: controller.noteTamilController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Note (Tamil)',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    maxLines: 2,
+                                  ),
+                                  SizedBox(height: 15),
+                                ],
+
+                                // Common Fields (Amount & Description)
+                                TextFormField(
+                                  controller: controller.amountController,
+                                  decoration: InputDecoration(
+                                    labelText: 'Amount',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
                                 SizedBox(height: 15),
-                                _buildTextField(
-                                    controller.amountController, 'Amount',
-                                    isNumber: true),
+
+                                TextFormField(
+                                  controller: controller.descriptionController,
+                                  decoration: InputDecoration(
+                                    labelText: 'Description',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  maxLines: 3,
+                                ),
                                 SizedBox(height: 15),
-                                _buildTextField(
-                                    controller.descriptionController,
-                                    'Description',
-                                    maxLines: 3),
-                                SizedBox(height: 20),
+
                                 SizedBox(
                                   width: double.infinity,
                                   child: ElevatedButton(
-                                    onPressed:
-                                    controller.addOrUpdatePrice,
+                                    onPressed: controller.addOrUpdatePrice,
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.deepPurple,
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 16),
+                                      padding: EdgeInsets.symmetric(vertical: 14),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(8),
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
                                     ),
                                     child: Text(
@@ -107,7 +150,8 @@ class PriceListPage extends StatelessWidget {
                                 ),
                               ],
                             );
-                          }),
+                          })
+
                         ],
                       ),
                     ),
