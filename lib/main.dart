@@ -3,11 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vaa_muneeswara_admin/firebase.option.dart';
-
-import 'Color/app_color.dart';
+import 'Style and Color/app_color.dart';
 import 'UI/Authentication/login.dart';
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
 
   try {

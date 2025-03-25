@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vaa_muneeswara_admin/Color/app_color.dart';
 import 'package:vaa_muneeswara_admin/UI/Dashboard/dashboard.dart';
+import '../../Style and Color/app_color.dart';
 
 class SideDrawer extends StatelessWidget {
   final SideDrawerController controller = Get.put(SideDrawerController());
