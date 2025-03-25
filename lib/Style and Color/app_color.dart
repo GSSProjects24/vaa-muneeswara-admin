@@ -9,6 +9,8 @@ class AppTheme {
   static const Color textColor = Color(0xFF006400); // Dark Green (For readability)
   static const Color buttonTextColor = Color(0xFFFFFFFF); // White (For contrast)
   static const Color containerBackground = Color(0xFF008000); // Green
+  static final Color grey = Colors.grey.shade300;
+  static final Color  black = Colors.black;
 
 
 

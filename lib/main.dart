@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vaa_muneeswara_admin/UI/Dashboard/dashboard.dart';
 import 'package:vaa_muneeswara_admin/firebase.option.dart';
-
-import 'Color/app_color.dart';
+import 'Style and Color/app_color.dart';
 import 'UI/Authentication/login.dart';
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
 
   try {

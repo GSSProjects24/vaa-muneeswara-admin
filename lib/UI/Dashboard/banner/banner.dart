@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaa_muneeswara_admin/Color/app_color.dart';
+import '../../../Style and Color/app_color.dart';
 
 class WebBanner extends StatelessWidget {
   @override
