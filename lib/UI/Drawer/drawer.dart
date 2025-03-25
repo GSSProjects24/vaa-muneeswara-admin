@@ -5,6 +5,7 @@ import 'package:vaa_muneeswara_admin/Controller/timing_controller.dart';
 import 'package:vaa_muneeswara_admin/Style%20and%20Color/app_color.dart';
 import 'package:vaa_muneeswara_admin/UI/Dashboard/dashboard.dart';
 import 'package:vaa_muneeswara_admin/UI/Timing/timing.dart';
+import 'package:vaa_muneeswara_admin/UI/gallery/gallery.dart';
 import 'package:vaa_muneeswara_admin/UI/price/price.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -27,7 +28,7 @@ class SideDrawer extends StatelessWidget {
           _buildMenuItem(Icons.dashboard, "Dashboard", 0, Dashboard()),
           _buildMenuItem(Icons.alarm, "Timing", 1, Timing()),
           _buildMenuItem(Icons.price_change, "Price", 2, PriceListPage()),
-          _buildMenuItem(Icons.bar_chart, "Sales Report", 3, Dashboard2()),
+          _buildMenuItem(Icons.image, "Gallery", 3, Gallery()),
 
           _buildMenuItem(Icons.logout, "Sign Out", 4, Dashboard2()),
 

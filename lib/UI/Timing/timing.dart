@@ -6,10 +6,16 @@ import 'package:vaa_muneeswara_admin/UI/Timing/widget/sectionCard.dart';
 import 'package:vaa_muneeswara_admin/UI/Timing/widget/timeSelectButton.dart';
 import 'package:vaa_muneeswara_admin/Controller/timing_controller.dart';
 
-class Timing extends StatelessWidget {
+class Timing extends StatefulWidget {
   Timing({super.key});
-  final TimingController controller = Get.put(TimingController());
 
+  @override
+  State<Timing> createState() => _TimingState();
+}
+
+class _TimingState extends State<Timing> {
+  final TimingController controller = Get.put(TimingController());
+  
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
