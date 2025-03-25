@@ -9,7 +9,6 @@ import 'Style and Color/app_color.dart';
 import 'UI/Authentication/login.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
@@ -44,7 +43,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-

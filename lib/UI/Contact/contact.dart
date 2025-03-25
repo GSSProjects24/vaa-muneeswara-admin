@@ -234,350 +234,356 @@ class _ContactState extends State<Contact> {
                         child: Center(child: CircularProgressIndicator()))
                     : Expanded(
                         child: SingleChildScrollView(
-                          child: Container(
-                            width: double.infinity,
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 15),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 20),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.white),
-                            child: Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: AppTheme.primaryColor,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: Text(
-                                        "Contact Info",
-                                        style: TextStyles.textStyle(20,AppTheme.whiteColor,
-                                          weight: FontWeight.bold,
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 15),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: AppTheme.primaryColor,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: Text(
+                                      "Contact Info",
+                                      style: TextStyles.textStyle(20,AppTheme.whiteColor,
+                                        weight: FontWeight.bold,
 
-                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 24),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  width: double.infinity,
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: ElevatedButton.icon(
-                                          onPressed: showEditDialog,
-                                          icon: Icon(
-                                            Icons.edit,
-                                            color: Colors.white,
+                              ),
+                              Container(
+                                width: double.infinity,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 20,  ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 20),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Colors.white),
+                                child: Column(
+                                  children: [
+
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      width: double.infinity,
+                                      child: Column(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: ElevatedButton.icon(
+                                              onPressed: showEditDialog,
+                                              icon: Icon(
+                                                Icons.edit,
+                                                color: Colors.white,
+                                              ),
+                                              label: Text(
+                                                "Edit",
+                                                style:
+                                                    TextStyle(color: Colors.white),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:AppTheme.secondaryColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                          label: Text(
-                                            "Edit",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:AppTheme.secondaryColor,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
+                                          _buildInfoRow(Icons.title, "Contact Title",
+                                              contactTitleController.text),
+                                          _buildInfoRow(Icons.location_on,
+                                              "Address", addressController.text),
+                                          _buildInfoRow(Icons.video_library,
+                                              "Social Media Title", socialMediaTitleController.text),
+                                          _buildInfoRow(Icons.phone, "Whatsapp",
+                                              whatsappController.text),  _buildInfoRow(Icons.facebook, "Facebook",
+                                              facebookController.text),
+                                          _buildInfoRow(Icons.camera_alt,
+                                              "Instagram", instaController.text),
+
+                                        ],
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 10),
+
+                                    SizedBox(height: 20),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Phone List",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold)),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: ElevatedButton.icon(
+                                            onPressed: addPhoneEntry,
+                                            icon: Icon(
+                                              Icons.edit,
+                                              color: Colors.white,
+                                            ),
+                                            label: Text(
+                                              "Add Phone",
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:AppTheme.secondaryColor,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
                                             ),
                                           ),
                                         ),
+                                      ],
+                                    ),
+
+                                    SizedBox(height: 20),
+                                    Container(
+                                      width: double.infinity,
+                                      child: DataTable(
+                                        columnSpacing: 20,
+                                        headingRowColor: MaterialStateProperty.all(AppTheme.backgroundColor),
+                                        border: TableBorder.all(
+                                            color: Colors.grey.shade300),
+                                        columns: [
+                                          DataColumn(
+                                            label: Text(
+                                              "Name",
+                                              style: TextStyles.textStyle(18, AppTheme.black,weight: FontWeight.bold)
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              "Number",
+                                                style: TextStyles.textStyle(18, AppTheme.black,weight: FontWeight.bold)
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              "Actions",
+                                                style: TextStyles.textStyle(18, AppTheme.black,weight: FontWeight.bold)
+                                            ),
+                                          ),
+                                        ],
+                                        rows:
+                                            phoneList.asMap().entries.map((entry) {
+                                          return DataRow(cells: [
+                                            DataCell(
+                                                Text(entry.value['name'] ?? '')),
+                                            DataCell(
+                                                Text(entry.value['number'] ?? '')),
+                                            DataCell(
+                                              Row(
+                                                children: [
+                                                  ElevatedButton.icon(
+                                                    onPressed: () => editPhoneEntry(
+                                                      entry.key,
+                                                      entry.value['name']!,
+                                                      entry.value['number']!,
+                                                    ),
+                                                    icon: Icon(
+                                                      Icons.edit,
+                                                      color: Colors.white,
+                                                    ),
+                                                    label: Text(
+                                                      "Edit",
+                                                        style: TextStyles.textStyle(14, AppTheme.whiteColor )
+                                                    ),
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor:
+                                                          Colors.lightBlue,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                8),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  ElevatedButton.icon(
+                                                    onPressed: () {
+                                                      CustomAlertBox.show(
+                                                        context,
+                                                        title: "Delete",
+                                                        description: "Are you sure you want to delete this Phone No?",
+                                                        okButtonText: "Delete",
+                                                        onOkPressed: () {
+                                                          deletePhoneEntry(entry.key);
+                                                          print('try start ${docId}');
+                                                        },
+                                                      );
+                                                      // DeleteAlert.showDeleteDialog(onConfirm:(){ deletePhoneEntry(entry.key);});
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.delete_outline_outlined,
+                                                      color: Colors.white,
+                                                    ),
+                                                    label: Text(
+                                                      "Delete",
+                                                        style: TextStyles.textStyle(14, AppTheme.whiteColor )
+                                                    ),
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor:
+                                                          Colors.red.shade900,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                8),
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              ),
+                                              // IconButton(
+                                              //   icon: Icon(Icons.delete, color: Colors.red.shade900),
+                                              //   onPressed: () => deletePhoneEntry(entry.key),
+                                              // ),
+                                            ),
+                                          ]);
+                                        }).toList(),
                                       ),
-                                      _buildInfoRow(Icons.title, "Contact Title",
-                                          contactTitleController.text),
-                                      _buildInfoRow(Icons.location_on,
-                                          "Address", addressController.text),
-                                      _buildInfoRow(Icons.video_library,
-                                          "Social Media Title", socialMediaTitleController.text),
-                                      _buildInfoRow(Icons.phone, "Whatsapp",
-                                          whatsappController.text),  _buildInfoRow(Icons.facebook, "Facebook",
-                                          facebookController.text),
-                                      _buildInfoRow(Icons.camera_alt,
-                                          "Instagram", instaController.text),
-
-                                    ],
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Phone List",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold)),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: ElevatedButton.icon(
-                                        onPressed: addPhoneEntry,
-                                        icon: Icon(
-                                          Icons.edit,
-                                          color: Colors.white,
-                                        ),
-                                        label: Text(
-                                          "Add Phone",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:AppTheme.secondaryColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
+                                    ),
+                                    SizedBox(height: 20),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Email List",
+                                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: ElevatedButton.icon(
+                                            onPressed: addEmailEntry,
+                                            icon: Icon(
+                                              Icons.edit,
+                                              color: Colors.white,
+                                            ),
+                                            label: Text(
+                                              "Add Email",
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:AppTheme.secondaryColor,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
                                                 BorderRadius.circular(8),
+                                              ),
+                                            ),
                                           ),
                                         ),
+                                      ],
+                                    ),
+
+                                    SizedBox(height: 20,),
+                                    Container(
+                                      width: double.infinity,
+                                      child: DataTable(
+                                        columnSpacing: 20,
+                                        headingRowColor: MaterialStateProperty.all(AppTheme.backgroundColor),
+                                        border: TableBorder.all(color: Colors.grey.shade300),
+                                        columns: [
+                                          DataColumn(
+                                            label: Text(
+                                              "Name",
+                                                style: TextStyles.textStyle(18, AppTheme.black,weight: FontWeight.bold)
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              "Email",
+                                                style: TextStyles.textStyle(18, AppTheme.black,weight: FontWeight.bold)
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            label: Text(
+                                              "Actions",
+                                                style: TextStyles.textStyle(18, AppTheme.black,weight: FontWeight.bold)
+                                            ),
+                                          ),
+                                        ],
+                                        rows: emailList.asMap().entries.map((entry) {
+                                          return DataRow(cells: [
+                                            DataCell(Text(entry.value['name'] ?? '')),
+                                            DataCell(Text(entry.value['email'] ?? '')),
+                                            DataCell(
+                                              Row(
+                                                children: [
+                                                  ElevatedButton.icon(
+                                                    onPressed: () => editEmailEntry(
+                                                      entry.key,
+                                                      entry.value['name']!,
+                                                      entry.value['email']!,
+                                                    ),
+                                                    icon: Icon(
+                                                      Icons.edit,
+                                                      color: Colors.white,
+                                                    ),
+                                                    label: Text(
+                                                      "Edit",
+                                                        style: TextStyles.textStyle(14, AppTheme.whiteColor )
+                                                    ),
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Colors.lightBlue,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  ElevatedButton.icon(
+                                                    onPressed: () {
+                                                      CustomAlertBox.show(
+                                                        context,
+                                                        title: "Delete",
+                                                        description: "Are you sure you want to delete this Email ID?",
+                                                        okButtonText: "Delete",
+                                                        onOkPressed: () {
+                                                          deleteEmailEntry(entry.key);
+                                                          print('try start ${docId}');
+                                                        },
+                                                      );
+
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.delete_outline_outlined,
+                                                      color: Colors.white,
+                                                    ),
+                                                    label: Text(
+                                                      "Delete",
+                                                        style: TextStyles.textStyle(14, AppTheme.whiteColor )
+                                                    ),
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Colors.red.shade900,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ]);
+                                        }).toList(),
                                       ),
                                     ),
+
                                   ],
                                 ),
-
-                                SizedBox(height: 20),
-                                Container(
-                                  width: double.infinity,
-                                  child: DataTable(
-                                    columnSpacing: 20,
-                                    headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor),
-                                    border: TableBorder.all(
-                                        color: Colors.grey.shade300),
-                                    columns: [
-                                      DataColumn(
-                                        label: Text(
-                                          "Name",
-                                          style: TextStyles.textStyle(18, AppTheme.whiteColor,weight: FontWeight.bold)
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Text(
-                                          "Number",
-                                            style: TextStyles.textStyle(18, AppTheme.whiteColor,weight: FontWeight.bold)
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Text(
-                                          "Actions",
-                                            style: TextStyles.textStyle(18, AppTheme.whiteColor,weight: FontWeight.bold)
-                                        ),
-                                      ),
-                                    ],
-                                    rows:
-                                        phoneList.asMap().entries.map((entry) {
-                                      return DataRow(cells: [
-                                        DataCell(
-                                            Text(entry.value['name'] ?? '')),
-                                        DataCell(
-                                            Text(entry.value['number'] ?? '')),
-                                        DataCell(
-                                          Row(
-                                            children: [
-                                              ElevatedButton.icon(
-                                                onPressed: () => editPhoneEntry(
-                                                  entry.key,
-                                                  entry.value['name']!,
-                                                  entry.value['number']!,
-                                                ),
-                                                icon: Icon(
-                                                  Icons.edit,
-                                                  color: Colors.white,
-                                                ),
-                                                label: Text(
-                                                  "Edit",
-                                                    style: TextStyles.textStyle(14, AppTheme.whiteColor )
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.lightBlue,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              ElevatedButton.icon(
-                                                onPressed: () {
-                                                  CustomAlertBox.show(
-                                                    context,
-                                                    title: "Delete",
-                                                    description: "Are you sure you want to delete this Phone No?",
-                                                    okButtonText: "Delete",
-                                                    onOkPressed: () {
-                                                      deletePhoneEntry(entry.key);
-                                                      print('try start ${docId}');
-                                                    },
-                                                  );
-                                                  // DeleteAlert.showDeleteDialog(onConfirm:(){ deletePhoneEntry(entry.key);});
-                                                },
-                                                icon: Icon(
-                                                  Icons.delete_outline_outlined,
-                                                  color: Colors.white,
-                                                ),
-                                                label: Text(
-                                                  "Delete",
-                                                    style: TextStyles.textStyle(14, AppTheme.whiteColor )
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.red.shade900,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                  ),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-                                          // IconButton(
-                                          //   icon: Icon(Icons.delete, color: Colors.red.shade900),
-                                          //   onPressed: () => deletePhoneEntry(entry.key),
-                                          // ),
-                                        ),
-                                      ]);
-                                    }).toList(),
-                                  ),
-                                ),
-                                SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Email List",
-                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: ElevatedButton.icon(
-                                        onPressed: addEmailEntry,
-                                        icon: Icon(
-                                          Icons.edit,
-                                          color: Colors.white,
-                                        ),
-                                        label: Text(
-                                          "Add Email",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:AppTheme.secondaryColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(8),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
-                                SizedBox(height: 20,),
-                                Container(
-                                  width: double.infinity,
-                                  child: DataTable(
-                                    columnSpacing: 20,
-                                    headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor),
-                                    border: TableBorder.all(color: Colors.grey.shade300),
-                                    columns: [
-                                      DataColumn(
-                                        label: Text(
-                                          "Name",
-                                            style: TextStyles.textStyle(18, AppTheme.whiteColor,weight: FontWeight.bold)
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Text(
-                                          "Email",
-                                            style: TextStyles.textStyle(18, AppTheme.whiteColor,weight: FontWeight.bold)
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Text(
-                                          "Actions",
-                                            style: TextStyles.textStyle(18, AppTheme.whiteColor,weight: FontWeight.bold)
-                                        ),
-                                      ),
-                                    ],
-                                    rows: emailList.asMap().entries.map((entry) {
-                                      return DataRow(cells: [
-                                        DataCell(Text(entry.value['name'] ?? '')),
-                                        DataCell(Text(entry.value['email'] ?? '')),
-                                        DataCell(
-                                          Row(
-                                            children: [
-                                              ElevatedButton.icon(
-                                                onPressed: () => editEmailEntry(
-                                                  entry.key,
-                                                  entry.value['name']!,
-                                                  entry.value['email']!,
-                                                ),
-                                                icon: Icon(
-                                                  Icons.edit,
-                                                  color: Colors.white,
-                                                ),
-                                                label: Text(
-                                                  "Edit",
-                                                    style: TextStyles.textStyle(14, AppTheme.whiteColor )
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.lightBlue,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(width: 10),
-                                              ElevatedButton.icon(
-                                                onPressed: () {
-                                                  CustomAlertBox.show(
-                                                    context,
-                                                    title: "Delete",
-                                                    description: "Are you sure you want to delete this Email ID?",
-                                                    okButtonText: "Delete",
-                                                    onOkPressed: () {
-                                                      deleteEmailEntry(entry.key);
-                                                      print('try start ${docId}');
-                                                    },
-                                                  );
-
-                                                },
-                                                icon: Icon(
-                                                  Icons.delete_outline_outlined,
-                                                  color: Colors.white,
-                                                ),
-                                                label: Text(
-                                                  "Delete",
-                                                    style: TextStyles.textStyle(14, AppTheme.whiteColor )
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.red.shade900,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ]);
-                                    }).toList(),
-                                  ),
-                                ),
-
-                                SizedBox(height: 20),
-                              ],
-                            ),
+                              ),
+                              SizedBox(height: 20,)
+                            ],
                           ),
                         ),
                       ),
@@ -782,7 +788,7 @@ class _ContactState extends State<Contact> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(icon, color:  AppTheme.primaryColor),
+              Icon(icon, color:  AppTheme.secondaryColor),
               SizedBox(width: 20),
               Expanded(
                 child: Text(
