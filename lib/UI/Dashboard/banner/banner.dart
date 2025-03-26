@@ -49,7 +49,6 @@ class WebBanner extends StatelessWidget {
             ],
           ),
           Image.asset('images/app_logo.png',height: 80,), // Replace with your logo
-
         ],
       ),
     );

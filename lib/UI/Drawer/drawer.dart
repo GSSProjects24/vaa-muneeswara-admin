@@ -92,6 +92,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:vaa_muneeswara_admin/Controller/side_controller.dart';
 import 'package:vaa_muneeswara_admin/Controller/timing_controller.dart';
 import 'package:vaa_muneeswara_admin/Style%20and%20Color/app_color.dart';
 import 'package:vaa_muneeswara_admin/UI/Dashboard/dashboard.dart';
@@ -196,10 +197,6 @@ class SideDrawer extends StatelessWidget {
   }
 }
 
-class SideDrawerController extends GetxController {
-  var selectedIndex = 0.obs;
 
-  void changePage(int index) {
-    selectedIndex.value = index;
-  }
-}
+
+
