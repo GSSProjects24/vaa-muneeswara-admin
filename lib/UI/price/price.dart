@@ -45,8 +45,9 @@ class PriceListPage extends StatelessWidget {
                             _showPriceDialog();
                           },
                           icon: Icon(Icons.add, color: Colors.white),
-                          label: Text("Add New Price", style: TextStyle(
-                              fontSize: 16, color: Colors.white)),
+                          label: Text("Add New Price",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white)),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppTheme.primaryColor,
                             padding: EdgeInsets.symmetric(
@@ -66,10 +67,20 @@ class PriceListPage extends StatelessWidget {
                         unselectedLabelColor: AppTheme.whiteColor,
                         indicatorColor: AppTheme.secondaryColor,
                         tabs: [
-                          Tab(child: Text('Prasadham', style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),),),
-                          Tab(child: Text('Abishegam', style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),),)
+                          Tab(
+                            child: Text(
+                              'Prasadham',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Tab(
+                            child: Text(
+                              'Abishegam',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -102,7 +113,10 @@ class PriceListPage extends StatelessWidget {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator(color: AppTheme.primaryColor,));
+          return Center(
+              child: CircularProgressIndicator(
+            color: AppTheme.primaryColor,
+          ));
         }
 
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -114,24 +128,23 @@ class PriceListPage extends StatelessWidget {
         return SingleChildScrollView(
           child: DataTable(
             headingRowColor: MaterialStateColor.resolveWith(
-                    (states) =>
-                    AppTheme.primaryColor.withOpacity(0.2)),
+                (states) => AppTheme.primaryColor.withOpacity(0.2)),
             border: TableBorder.all(color: Colors.grey.shade300),
             columns: [
               DataColumn(
-                  label: Text(
-                      category == "Prasadham"
-                          ? "Name"
-                          : "Description",
-                      style: TextStyle(fontWeight: FontWeight.bold,
+                  label: Text(category == "Prasadham" ? "Name" : "Description",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
                           color: AppTheme.primaryColor))),
               DataColumn(
                   label: Text("Amount",
-                      style: TextStyle(fontWeight: FontWeight.bold,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
                           color: AppTheme.primaryColor))),
               DataColumn(
                   label: Text("Actions",
-                      style: TextStyle(fontWeight: FontWeight.bold,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
                           color: AppTheme.primaryColor))),
             ],
             rows: docs.map((doc) {
@@ -143,23 +156,19 @@ class PriceListPage extends StatelessWidget {
                   Row(
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () =>(
-              _showPriceDialog(data: data, docId: doc.id,category:category)
-              ),
+                        onPressed: () => (_showPriceDialog(
+                            data: data, docId: doc.id, category: category)),
                         icon: Icon(
                           Icons.edit,
                           color: Colors.white,
                         ),
-                        label: Text(
-                            "Edit",
-                            style: TextStyles.textStyle(14, AppTheme.whiteColor )
-                        ),
+                        label: Text("Edit",
+                            style:
+                                TextStyles.textStyle(14, AppTheme.whiteColor)),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:AppTheme.primaryColor,
+                          backgroundColor: AppTheme.primaryColor,
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(
-                                8),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                       ),
@@ -167,29 +176,24 @@ class PriceListPage extends StatelessWidget {
                         width: 10,
                       ),
                       ElevatedButton.icon(
-                        onPressed: () =>  _showDeleteConfirmationDialog(context, doc.id),
+                        onPressed: () =>
+                            _showDeleteConfirmationDialog(context, doc.id),
                         icon: Icon(
                           Icons.delete_outline_outlined,
                           color: Colors.white,
                         ),
-                        label: Text(
-                            "Delete",
-                            style: TextStyles.textStyle(14, AppTheme.whiteColor )
-                        ),
+                        label: Text("Delete",
+                            style:
+                                TextStyles.textStyle(14, AppTheme.whiteColor)),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                          Colors.red.shade900,
+                          backgroundColor: Colors.red.shade900,
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(
-                                8),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                       ),
-
                     ],
                   ),
-
                 ),
               ]);
             }).toList(),
@@ -198,6 +202,7 @@ class PriceListPage extends StatelessWidget {
       },
     );
   }
+
   void _showDeleteConfirmationDialog(BuildContext context, String docId) {
     showDialog(
       context: context,
@@ -226,12 +231,11 @@ class PriceListPage extends StatelessWidget {
     );
   }
 
-
-  void _showPriceDialog({String? docId, Map<String, dynamic>? data,String? category}) async {
+  void _showPriceDialog(
+      {String? docId, Map<String, dynamic>? data, String? category}) async {
     Future.delayed(Duration.zero, () async {
       print("dta: ${data}");
       if (data == null) {
-
         controller.selectedCategory.value = 'Prasadham';
         controller.nameController.clear();
         controller.prasadhamNameTamilController.clear();
@@ -241,11 +245,12 @@ class PriceListPage extends StatelessWidget {
         controller.descriptionTamilController.clear();
         controller.amountController.clear();
       } else {
-        controller.selectedCategory.value =category ?? 'Prasadham';
+        controller.selectedCategory.value = category ?? 'Prasadham';
         controller.amountController.text = data['amount']?.toString() ?? '';
         if (controller.selectedCategory.value == "Prasadham") {
           controller.nameController.text = data['name'] ?? '';
-          controller.prasadhamNameTamilController.text = data['name_tamil'] ?? '';
+          controller.prasadhamNameTamilController.text =
+              data['name_tamil'] ?? '';
           controller.noteEnglishController.text = data['unit'] ?? '';
           controller.noteTamilController.text = data['unit_tamil'] ?? '';
         } else {
@@ -253,7 +258,6 @@ class PriceListPage extends StatelessWidget {
           controller.descriptionTamilController.text = data['name_tamil'] ?? '';
         }
       }
-
 
       Get.defaultDialog(
         title: docId == null ? "Add Price" : "Edit Price",
@@ -278,4 +282,3 @@ class PriceListPage extends StatelessWidget {
     });
   }
 }
-
