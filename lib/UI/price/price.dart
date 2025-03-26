@@ -56,7 +56,7 @@ class PriceListPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: 20),
                     Container(
                       decoration: BoxDecoration(
                         color: AppTheme.primaryColor,

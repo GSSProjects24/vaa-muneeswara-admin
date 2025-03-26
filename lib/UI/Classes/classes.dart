@@ -27,30 +27,40 @@ class _ClassesState extends State<Classes> {
           Expanded(
               child: Column(
             children: [
-              SizedBox(height: 10,),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: AppTheme.primaryColor,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      "Timing Settings",
-                      style: TextStyles.textStyle(
-                        20,
-                        AppTheme.whiteColor,
-                        weight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              SizedBox(height: 20,),
+              // Container(
+              //   margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(15),
+              //     color: AppTheme.primaryColor,
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: Center(
+              //       child: Text(
+              //         "Timing Settings",
+              //         style: TextStyles.textStyle(
+              //           20,
+              //           AppTheme.whiteColor,
+              //           weight: FontWeight.bold,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Row(
                 children: [
-                  Expanded(child: SizedBox()),
+                  Expanded(child:   Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(
+                      "Manage Classes",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.primaryColor,
+                      ),
+                    ),
+                  ),),
                   Expanded(
                     child: TextField(
                       controller: controller.documentController,
@@ -94,7 +104,7 @@ class _ClassesState extends State<Classes> {
 
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 20,),
               Expanded(
                 child: Obx(() => DefaultTabController(
                       length: controller.tabs.length,
@@ -116,7 +126,7 @@ class _ClassesState extends State<Classes> {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                color: AppTheme.whiteColor, // Background color
+                                color: AppTheme.primaryColor, // Background color
                                 borderRadius: BorderRadius.circular(10), // Rounded corners
 
                               ),
@@ -124,9 +134,9 @@ class _ClassesState extends State<Classes> {
                                 // controller: controller.tabs,
                                 tabs: controller.tabs,
                                 labelColor: Colors.white,
-                                unselectedLabelColor:AppTheme.black,
+                                unselectedLabelColor:AppTheme.whiteColor,
                                 indicator: BoxDecoration(
-                                  color: AppTheme.secondaryColor2,
+                                  color: AppTheme.containerBackground,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 indicatorSize: TabBarIndicatorSize.tab,
