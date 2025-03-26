@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:vaa_muneeswara_admin/Controller/login_controller.dart';
 import 'package:vaa_muneeswara_admin/Style%20and%20Color/app_color.dart';
 
+import '../../Style and Color/font_style.dart';
+
 class Login extends StatelessWidget {
   final LoginController controller = Get.put(LoginController());
   final _formKey = GlobalKey<FormState>(); // Form key for validation
@@ -84,8 +86,17 @@ class Login extends StatelessWidget {
                               decoration: InputDecoration(
                                 labelText: "Email",
                                 prefixIcon: Icon(Icons.email, color: AppTheme.primaryColor),
+                                labelStyle:TextStyles.textStyle(12, AppTheme.black),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: AppTheme.primaryColor),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color:  AppTheme.primaryColor),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color:   AppTheme.primaryColor ),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
@@ -114,8 +125,17 @@ class Login extends StatelessWidget {
                                   ),
                                   onPressed: controller.togglePasswordVisibility,
                                 ),
+                                labelStyle:TextStyles.textStyle(12, AppTheme.black),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: AppTheme.primaryColor),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color:  AppTheme.primaryColor),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color:   AppTheme.primaryColor ),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
@@ -129,28 +149,39 @@ class Login extends StatelessWidget {
                             SizedBox(height: 30),
                             Obx(() => SizedBox(
                               width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: controller.isLoading.value
-                                    ? null
-                                    : () {
-                                  if (_formKey.currentState!.validate()) {
-                                    controller.adminLogin();
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppTheme.buttonColor,
-                                  padding: EdgeInsets.symmetric(vertical: 16),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [AppTheme.secondaryColor, AppTheme.secondaryColor2],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
                                   ),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: controller.isLoading.value
-                                    ? CircularProgressIndicator(color: Colors.white)
-                                    : Text(
-                                  "Login",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: AppTheme.buttonTextColor,
+                                child: ElevatedButton(
+                                  onPressed: controller.isLoading.value
+                                      ? null
+                                      : () {
+                                    if (_formKey.currentState!.validate()) {
+                                      controller.adminLogin();
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                    padding: EdgeInsets.symmetric(vertical: 16),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                  child: controller.isLoading.value
+                                      ? CircularProgressIndicator(color: Colors.white)
+                                      : Text(
+                                    "Login",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: AppTheme.buttonTextColor,
+                                    ),
                                   ),
                                 ),
                               ),
